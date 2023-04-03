@@ -24,13 +24,14 @@ const bollywoodDataInsertToDb = async(req, res) => {
 
 const bollywoodDataFindFromDb = async(req, res) => {
     try {
-        const result = await mongoClient.findFromDB(collectionName);
-        console.log("The result of databse operation =>", result);
-        return res.status(200).send(result);
-    } catch(error) {
-        console.log("Something went wrong while performing db opeartion");
-        return res.status(500).send({message: "Something went wrong while performing the operation"})
+        const dbResponse = await Bollywood.find({});
+        console.log("Data is saved =>", dbResponse)
+        return res.status(200).send(dbResponse)
+    } catch(err) {
+        console.log("Error while oprating on db =>", err.message);
+        return res.status(500).send({message: "Error while operating on db"})
     }
 }
+
 
 module.exports = { bollywoodDataInsertToDb, bollywoodDataFindFromDb }
